@@ -1,4 +1,4 @@
-# File: api/notification_router.py
+contenido = '''# File: api/notification_router.py
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
 from core.notification import Notification
@@ -51,3 +51,7 @@ async def get_notification_by_id(
         return notification
     except NotificationNotFoundError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
+'''
+
+open('api/notification_router.py', 'w', encoding='utf-8').write(contenido)
+print('OK')
