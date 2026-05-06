@@ -1,4 +1,6 @@
-# Notification Engine API
+bt = chr(96)
+
+readme = f"""# Notification Engine API
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green)
@@ -16,7 +18,7 @@ Sistema de notificaciones multicanal **production-ready** generado autonomamente
 
 ## Arquitectura
 
-```
+{bt}{bt}{bt}
 core/                    # Dominio puro
   exceptions.py          # Excepciones tipadas del dominio
   notification.py        # Entidad Notification (dataclass inmutable)
@@ -30,9 +32,9 @@ infrastructure/          # Implementaciones concretas
 
 api/                     # Capa HTTP
   notification_router.py # POST /notifications
-  notification_router_get.py # GET /notifications/{id}
+  notification_router_get.py # GET /notifications/{{id}}
   channel_router.py      # GET /channels
-```
+{bt}{bt}{bt}
 
 ## Stack
 
@@ -46,36 +48,36 @@ api/                     # Capa HTTP
 | Metodo | Ruta | Descripcion |
 |--------|------|-------------|
 | POST | /api/v1/notifications/ | Crear notificacion |
-| GET | /api/v1/notifications/{id} | Obtener notificacion por ID |
+| GET | /api/v1/notifications/{{id}} | Obtener notificacion por ID |
 | GET | /api/v1/channels/ | Listar canales disponibles |
 | GET | /health | Health check |
 
 ## Ejemplo de uso
 
-```bash
-curl -X POST https://notification-engine-247946064488.us-central1.run.app/api/v1/notifications/ \
-  -H "Content-Type: application/json" \
-  -d '{"recipient": "user@example.com", "message": "Hola desde MAIIE", "channel": "email"}'
-```
+{bt}{bt}{bt}bash
+curl -X POST https://notification-engine-247946064488.us-central1.run.app/api/v1/notifications/ \\
+  -H "Content-Type: application/json" \\
+  -d '{{"recipient": "user@example.com", "message": "Hola desde MAIIE", "channel": "email"}}'
+{bt}{bt}{bt}
 
 Respuesta:
 
-```json
-{
+{bt}{bt}{bt}json
+{{
   "id": "213c9ef6-033b-401d-be89-6a3820c3c7f0",
   "recipient": "user@example.com",
   "message": "Hola desde MAIIE",
   "status": "sent",
   "created_at": "2026-05-06T18:00:00",
   "updated_at": "2026-05-06T18:00:00"
-}
-```
+}}
+{bt}{bt}{bt}
 
 ## Pipeline de generacion autonoma
 
 Este proyecto fue generado por **M.A.I.I.E.** (Modelo de Arquitectura e Ingenieria Inteligente de Edisson):
 
-```
+{bt}{bt}{bt}
 ARCHITECT (gemini-2.5-flash-lite)
     → planifica el sistema con contratos formales
 
@@ -84,21 +86,25 @@ ENGINEER (gemini-2.5-pro)
 
 AUDITOR (gemini-2.5-pro)
     → valida 100% cumplimiento antes de aprobar
-```
+{bt}{bt}{bt}
 
 Cada archivo fue validado con contratos arquitectonicos formales y aprobado **100% por el AUDITOR** antes de ser publicado.
 
 ## Instalacion local
 
-```bash
+{bt}{bt}{bt}bash
 git clone https://github.com/ingenieroedissonia-eng/notification-engine-fastapi
 cd notification-engine-fastapi
 pip install -r requirements.txt
 uvicorn main:app --reload
-```
+{bt}{bt}{bt}
 
 ---
 
 Built with [M.A.I.I.E. Systems](https://maiie-systems.vercel.app) by **Edisson A.G.C.**
 
 Contacto: ingenieroedissonia@gmail.com
+"""
+
+open('README.md', 'w', encoding='utf-8').write(readme)
+print('OK: README profesional generado')
