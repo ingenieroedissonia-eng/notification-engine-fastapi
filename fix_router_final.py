@@ -1,4 +1,5 @@
-from slowapi import Limiter
+# Reescribir notification_router.py limpio con rate limiting correcto
+router_content = '''from slowapi import Limiter
 from slowapi.util import get_remote_address
 from fastapi import APIRouter, Depends, HTTPException, status, Request
 from pydantic import BaseModel, Field
@@ -58,3 +59,26 @@ async def get_notification_by_id(
         return notification
     except NotificationError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
+'''
+open('api/notification_router.py', 'w', encoding='utf-8').write(router_content)
+print('OK: notification_router.py reescrito')
+
+# Agregar get_notification al service
+f = open('core/services/notification_service.py', 'r', encoding='utf-8')
+c = f.read()
+f.close()
+
+if 'get_notification' not in c:
+    nuevo = '''
+    async def get_notification(self, notification_id):
+        from core.exceptions import NotificationNotFoundError
+        notification = await self.notification_repository.get_by_id(notification_id)
+        if notification is None:
+            raise NotificationNotFoundError(str(notification_id))
+        return notification
+'''
+    c = c.rstrip() + '\n' + nuevo
+    open('core/services/notification_service.py', 'w', encoding='utf-8').write(c)
+    print('OK: get_notification agregado al service')
+
+print('Todo listo.')

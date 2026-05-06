@@ -35,3 +35,10 @@ class NotificationService:
             raise e
         except Exception as e:
             raise NotificationError(f"Failed to send notification: {e}") from e
+
+    async def get_notification(self, notification_id):
+        from core.exceptions import NotificationNotFoundError
+        notification = await self.notification_repository.get_by_id(notification_id)
+        if notification is None:
+            raise NotificationNotFoundError(str(notification_id))
+        return notification
