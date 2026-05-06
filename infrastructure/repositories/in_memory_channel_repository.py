@@ -114,3 +114,9 @@ class InMemoryChannelRepository(ChannelRepository):
             del self._channels[channel_id]
         else:
             raise ChannelError(f"Channel with id {channel_id} not found.")
+
+    async def get_by_type(self, channel_type: str):
+        for channel in self._channels.values():
+            if hasattr(channel, 'type') and str(channel.type).upper() == channel_type.upper():
+                return channel
+        return None
