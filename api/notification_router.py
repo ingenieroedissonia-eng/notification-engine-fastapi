@@ -1,3 +1,6 @@
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+from fastapi import Request
 # File: api/notification_router.py
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
@@ -10,6 +13,7 @@ from infrastructure.repositories.in_memory_channel_repository import InMemoryCha
 from core.services.notification_service import NotificationService
 
 router = APIRouter(prefix="/notifications", tags=["notifications"])
+limiter = Limiter(key_func=get_remote_address)
 
 notification_repo = InMemoryNotificationRepository.get_instance()
 channel_repo = InMemoryChannelRepository.get_instance()
@@ -27,7 +31,8 @@ class CreateNotificationRequest(BaseModel):
     channel: str = Field(default="email", example="email")
 
 @router.post("/", response_model=Notification, status_code=status.HTTP_201_CREATED)
-async def create_notification(
+@limiter.limit("2/day")
+async def create_notification(request: Request,
     request: CreateNotificationRequest,
     use_case: CreateNotification = Depends(get_create_notification_use_case),
 ):

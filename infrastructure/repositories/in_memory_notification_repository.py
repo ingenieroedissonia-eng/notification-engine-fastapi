@@ -11,7 +11,19 @@ class InMemoryNotificationRepository(NotificationRepository):
     def __init__(self):
         if InMemoryNotificationRepository._instance is not None:
             raise RuntimeError("Use get_instance()")
-        self._notifications: Dict[UUID, Notification] = {}
+        from uuid import UUID
+        from datetime import datetime
+        from core.notification import NotificationStatus
+        seed_id = UUID("00000000-0000-0000-0000-000000000001")
+        seed = Notification(
+            id=seed_id,
+            recipient="demo@maiie-systems.com",
+            message="Notificacion de demo generada por M.A.I.I.E. Systems",
+            status=NotificationStatus.SENT,
+            created_at=datetime(2026, 1, 1, 0, 0, 0),
+            updated_at=datetime(2026, 1, 1, 0, 0, 0),
+        )
+        self._notifications: Dict[UUID, Notification] = {seed_id: seed}
 
     @classmethod
     def get_instance(cls):
