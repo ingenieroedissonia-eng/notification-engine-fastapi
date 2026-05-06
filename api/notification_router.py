@@ -12,6 +12,7 @@ from core.use_cases.create_notification import CreateNotification
 from core.use_cases.get_notification import GetNotification
 from core.exceptions import NotificationError, NotificationNotFoundError
 from infrastructure.repositories.in_memory_notification_repository import InMemoryNotificationRepository
+from infrastructure.repositories.in_memory_channel_repository import InMemoryChannelRepository
 
 router = APIRouter(
     prefix="/notifications",
@@ -22,6 +23,7 @@ router = APIRouter(
 # In a real application, this would be managed by a more sophisticated dependency
 # injection container and connected to a persistent database.
 notification_repo = InMemoryNotificationRepository.get_instance()
+channel_repo = InMemoryChannelRepository.get_instance()
 
 # --- Dependency Injection Providers ---
 
@@ -30,7 +32,7 @@ def get_create_notification_use_case() -> CreateNotification:
     Dependency provider for the CreateNotification use case.
     """
     from core.services.notification_service import NotificationService
-    svc = NotificationService(notification_repo)
+    svc = NotificationService(notification_repository=notification_repo, channel_repository=channel_repo)
     return CreateNotification(notification_service=svc)
 
 def get_get_notification_use_case() -> GetNotification:
