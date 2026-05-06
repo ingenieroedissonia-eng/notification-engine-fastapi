@@ -21,7 +21,7 @@ router = APIRouter(
 # A single in-memory repository instance is used to maintain state across API calls.
 # In a real application, this would be managed by a more sophisticated dependency
 # injection container and connected to a persistent database.
-notification_repo = InMemoryNotificationRepository()
+notification_repo = InMemoryNotificationRepository.get_instance()
 
 # --- Dependency Injection Providers ---
 
@@ -29,13 +29,15 @@ def get_create_notification_use_case() -> CreateNotification:
     """
     Dependency provider for the CreateNotification use case.
     """
-    return CreateNotification(repository=notification_repo)
+    from core.services.notification_service import NotificationService
+    svc = NotificationService(notification_repo)
+    return CreateNotification(notification_service=svc)
 
 def get_get_notification_use_case() -> GetNotification:
     """
     Dependency provider for the GetNotification use case.
     """
-    return GetNotification(repository=notification_repo)
+    return GetNotification(notification_repository=notification_repo)
 
 # --- Data Transfer Objects (DTOs) ---
 
