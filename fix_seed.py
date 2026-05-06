@@ -2,19 +2,18 @@ f = open('infrastructure/repositories/in_memory_channel_repository.py', 'r', enc
 c = f.read()
 f.close()
 
-seed = '''
-        from core.channel import Channel, ChannelType
-        import uuid
-        self._channels = {
-            'email': Channel(name='Email', type=ChannelType.EMAIL),
-            'sms': Channel(name='SMS', type=ChannelType.SMS),
-            'push': Channel(name='Push', type=ChannelType.PUSH),
-        }
-'''
-
 c = c.replace(
-    'if InMemoryChannelRepository._instance is not None:\n            raise RuntimeError("Singleton instance already created. Use get_instance().")',
-    'if InMemoryChannelRepository._instance is not None:\n            raise RuntimeError("Singleton instance already created. Use get_instance().")' + '\n' + seed
+    '        self._channels = {}',
+    '''        from core.channel import ChannelType
+        from uuid import uuid4
+        ch_email = Channel(name="Email", type=ChannelType.EMAIL, configuration={})
+        ch_sms = Channel(name="SMS", type=ChannelType.SMS, configuration={})
+        ch_push = Channel(name="Push", type=ChannelType.PUSH, configuration={})
+        self._channels = {
+            ch_email.id: ch_email,
+            ch_sms.id: ch_sms,
+            ch_push.id: ch_push,
+        }'''
 )
 
 f = open('infrastructure/repositories/in_memory_channel_repository.py', 'w', encoding='utf-8')
