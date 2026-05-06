@@ -125,7 +125,9 @@ class InMemoryChannelRepository(ChannelRepository):
             raise ChannelError(f"Channel with id {channel_id} not found.")
 
     async def get_by_type(self, channel_type: str):
+        search = channel_type.upper()
         for channel in self._channels.values():
-            if hasattr(channel, 'type') and str(channel.type).upper() == channel_type.upper():
+            ch_type = str(channel.type.value).upper() if hasattr(channel.type, 'value') else str(channel.type).upper()
+            if ch_type == search:
                 return channel
         return None
