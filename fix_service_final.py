@@ -1,4 +1,4 @@
-# File: core/services/notification_service.py
+contenido = '''# File: core/services/notification_service.py
 from typing import List, Optional, Any, Dict
 from uuid import UUID, uuid4
 from datetime import datetime
@@ -35,3 +35,7 @@ class NotificationService:
             raise e
         except Exception as e:
             raise NotificationError(f"Failed to send notification: {e}") from e
+'''
+
+open('core/services/notification_service.py', 'w', encoding='utf-8').write(contenido)
+print('OK')
