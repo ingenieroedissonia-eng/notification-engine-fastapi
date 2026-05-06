@@ -162,7 +162,6 @@ class NotificationService:
         except Exception as e:
             raise NotificationError(f"Failed to retrieve all notifications: {e}") from e
 
-python
 # File: core/services/notification_service.py
 """
 This module defines the NotificationService, which orchestrates notification logic.

@@ -92,7 +92,6 @@ class InMemoryNotificationRepository(NotificationRepository):
         if notification_id in self._notifications:
             del self._notifications[notification_id]
 
-python
 # File: infrastructure/repositories/in_memory_notification_repository.py
 """
 In-memory implementation of the NotificationRepository.
@@ -186,3 +185,15 @@ class InMemoryNotificationRepository(NotificationRepository):
         """
         if notification_id in self._notifications:
             del self._notifications[notification_id]
+
+    async def update(self, notification) -> None:
+        if notification.id not in self._notifications:
+            from core.exceptions import NotificationNotFoundError
+            raise NotificationNotFoundError(str(notification.id))
+        self._notifications[notification.id] = notification
+
+    async def delete(self, notification_id) -> None:
+        if notification_id not in self._notifications:
+            from core.exceptions import NotificationNotFoundError
+            raise NotificationNotFoundError(str(notification_id))
+        del self._notifications[notification_id]

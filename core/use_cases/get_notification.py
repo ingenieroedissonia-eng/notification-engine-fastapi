@@ -51,7 +51,6 @@ class GetNotification:
                 f"An unexpected error occurred while retrieving notification {notification_id}: {e}"
             ) from e
 
-python
 # File: core/use_cases/get_notification.py
 """
 This module contains the use case for retrieving a specific notification.

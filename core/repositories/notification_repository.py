@@ -66,7 +66,6 @@ class NotificationRepository(ABC):
         """
         ...
 
-python
 # File: core/repositories/notification_repository.py
 from abc import ABC, abstractmethod
 from typing import List, Optional

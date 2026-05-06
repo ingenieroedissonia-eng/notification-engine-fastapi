@@ -48,3 +48,7 @@ class ExternalServiceError(NotificationError):
 
     def __str__(self) -> str:
         return f"ExternalServiceError: {self.message}"
+
+class NotificationNotFoundError(NotificationError):
+    def __init__(self, notification_id: str):
+        super().__init__(f'Notification with id {notification_id} not found')

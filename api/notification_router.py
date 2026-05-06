@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 from core.notification import Notification
 from core.use_cases.create_notification import CreateNotification
 from core.use_cases.get_notification import GetNotification
-from core.exceptions import NotificationError, NotificationNotFound
+from core.exceptions import NotificationError, NotificationNotFoundError
 from infrastructure.repositories.in_memory_notification_repository import InMemoryNotificationRepository
 
 router = APIRouter(
@@ -90,7 +90,7 @@ async def get_notification_by_id(
     try:
         notification = use_case.execute(notification_id=notification_id)
         return notification
-    except NotificationNotFound as e:
+    except NotificationNotFoundError as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=str(e),

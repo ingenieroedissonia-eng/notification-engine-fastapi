@@ -47,7 +47,6 @@ class CreateNotification:
         )
         return notification
 
-python
 # File: core/use_cases/create_notification.py
 """
 Use Case for creating and sending a notification.
