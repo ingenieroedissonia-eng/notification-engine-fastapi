@@ -5,17 +5,17 @@
 ![Cloud Run](https://img.shields.io/badge/Google_Cloud_Run-deployed-blue)
 ![Architecture](https://img.shields.io/badge/Architecture-Clean_Architecture-orange)
 
-Sistema de notificaciones multicanal **production-ready** desarrollado por **M.A.I.I.E. Systems**.
+Production-ready multichannel notification system desarrollado por **M.A.I.I.E. Systems**.
 
 ## Live API
 
 **Swagger UI:** https://notification-engine-247946064488.us-central1.run.app/docs
 
-> Cada usuario tiene **2 intentos de prueba gratuitos**. Para acceso completo contacta a ingenieroedissonia@gmail.com
+> Each user gets **2 free demo requests**. For full access contact ingenieroedissonia@gmail.com
 
 ## What It Does
 
-Recibe solicitudes de notificacion via REST, valida el canal de envio, y procesa la notificacion a traves de una arquitectura limpia con capas bien definidas. Construido para ser intercambiable con cualquier base de datos o proveedor de mensajeria sin tocar la logica de negocio.
+Receives notification requests via REST, validates the channel, and processes them through a clean layered architecture. Built to be swappable with any database or messaging provider without touching business logic.
 
 ## Architecture
 
